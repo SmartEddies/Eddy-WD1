@@ -1,0 +1,74 @@
+author: DIY-365
+name: Eddy-WD1
+description: Eddy-WD1 firmware
+# arch: PLATFORM
+version: 1.0
+manifest_version: 2017-05-18
+libs_version: ${mos.version}
+modules_version: ${mos.version}
+mongoose_os_version: ${mos.version}
+
+config_schema:
+  - ["device.id", "EddyWD1-??????"]
+  
+  - ["wifi.ap.ssid", "EddyWD1-??????"]
+  - ["wifi.ap.pass", "Edd!es@h0me"]
+
+  - ["bthing.mqtt.topic_prefix", "$eddies"]
+  - ["bthing.mqtt.pub_delta_shadow", true]
+
+  - ["eddy", "o", {title: "Eddy's settings"}]
+  - ["eddy.valve", "o", {title: "Purified-water valve settings"}]
+  - ["eddy.valve.id", "s", "pure_water", {title: "The valve ID"}]
+  - ["eddy.valve.pulse_duration", "i", 50, {title: "Milliseconds, pulse duration for opening/closing the valve"}]
+  - ["eddy.valve.close_timeout", "i", 10, {title: "Seconds, the timeout for closing the valve if no water flow is detected"}]
+  - ["eddy.pure_flowsens", "o", {title: "Purified-water flow sensor settings"}]
+  - ["eddy.pure_flowsens.id", "s", "pure_water", {title: "The sensor ID"}]
+  - ["eddy.pure_flowsens.pulse_high", "b", true, {title: "'true' sensor's pulses are positive (0 ot 1), 'false' otherwise"}]
+  - ["eddy.pure_flowsens.flow_ratio", "d", 11.0, {title: "The sensor's flow ratio"}]
+  - ["eddy.tap_flowsens", "o", {title: "Tap-water flow sensor settings"}]
+  - ["eddy.tap_flowsens.id", "s", "tap_water", {title: "The sensor ID"}]
+  - ["eddy.tap_flowsens.pulse_high", "b", true, {title: "'true' sensor's pulses are positive (0 ot 1), 'false' otherwise"}]
+  - ["eddy.tap_flowsens.flow_ratio", "d", 12.79, {title: "The sensor's flow ratio"}]
+  - ["eddy.pure_alert", "o", {title: "Purified-water alert sensor settings"}]
+  - ["eddy.pure_alert.id", "s", "pure_water", {title: "The sensor ID"}]
+  - ["eddy.tap_alert", "o", {title: "Tap-water alert sensor settings"}]
+  - ["eddy.tap_alert.id", "s", "tap_water", {title: "The sensor ID"}]
+
+tags:
+  - c
+  - eddy-wd1
+
+sources:
+  - src
+
+includes:
+  - include
+
+filesystem:
+  - fs
+
+libs:
+  - location: https://github.com/mongoose-os-libs/boards
+  - location: https://github.com/mongoose-os-libs/provision
+  - location: https://github.com/mongoose-os-libs/wifi
+  - location: https://github.com/mongoose-os-libs/rpc-common
+  - location: https://github.com/mongoose-os-libs/rpc-service-config
+  - location: https://github.com/mongoose-os-libs/rpc-service-ota
+  - location: https://github.com/mongoose-os-libs/rpc-service-fs
+  - location: https://github.com/mongoose-os-libs/rpc-uart
+  - location: https://github.com/mongoose-os-libs/dash
+  - location: https://github.com/diy365-mgos/bthing-gpio
+  - location: https://github.com/diy365-mgos/bthing-shadow
+  - location: https://github.com/diy365-mgos/bthing-mqtt
+  - location: https://github.com/diy365-mgos/bvalve-gpio
+  - location: https://github.com/diy365-mgos/bflowsens-gpio
+  - location: https://github.com/diy365-mgos/balert
+  - location: https://github.com/diy365-mgos/bbutton
+
+conds:
+  - when: mos.platform == "esp32"
+    apply:
+      build_vars:
+        # Icrease app szie for ESP32
+        APP_SLOT_SIZE: 0x190000
