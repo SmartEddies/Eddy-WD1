@@ -12,10 +12,39 @@ This firmware allows you to easly control a water diverter valve using ESP8266 o
 `mos config-set dash.token=<token>`
 `mos config-set dash.enable=true`
 
+```json
+{
+    "valves": {
+        "pure_water": 0
+    },
+    "flow_sensors": {
+        "pure_water": {
+            "flowRate": 0,
+            "partialFlow": 0,
+            "totalFlow": 0
+        },
+        "tap_water": {
+            "flowRate": 0,
+            "partialFlow": 0,
+            "totalFlow": 0
+        }
+    },
+    "alerts": {
+        "pure_water": null,
+        "tap_water": null
+    },
+    "force-btn": {
+        "event": 1,
+        "pressCount": 0,
+        "pressDuration": 0
+    }
+}
+```
+
 ## Configuration
 The library adds the `eddy` section to the device configuration:
 ```javascript
 
 ```
 ## To Do
-*No improvememts scheduled.*
+*No improvements scheduled.*
